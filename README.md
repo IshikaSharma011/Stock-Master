@@ -60,7 +60,6 @@ Use the UI — everything runs locally
 No backend or server required
 
 Technologies
-HTML5
 CSS3 (Neon UI)
 JavaScript (ES6)
 LocalStorage
@@ -70,3 +69,9 @@ Role-based access control
 PDF/Excel exports
 Barcode scanner support
 Cloud sync
+
+HTML5<img width="617" height="281" alt="Screenshot 2025-11-22 170539 (1)" src="https://github.com/user-attachments/assets/999b877a-82fd-4a14-a441-11c7fdd7d210" />
+
+
+
+<img width="1158" height="596" alt="Screenshot 2025-11-22 170634" src="https://github.com/user-attachments/assets/3b148d17-b355-4cdf-8106-fe482023f115" />
