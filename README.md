@@ -70,6 +70,9 @@ PDF/Excel exports
 Barcode scanner support
 Cloud sync
 
+
+<img width="1300" height="646" alt="Screenshot 2025-11-22 170431" src="https://github.com/user-attachments/assets/606fdc22-5bed-44a8-b3f2-4ecced126c36" />
+
 HTML5<img width="617" height="281" alt="Screenshot 2025-11-22 170539 (1)" src="https://github.com/user-attachments/assets/999b877a-82fd-4a14-a441-11c7fdd7d210" />
 
 
