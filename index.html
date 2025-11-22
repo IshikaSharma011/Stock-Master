@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>StockNova — Inventory Management</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- decorative bubbles (keeps CSS animation from theme) -->
+  <div class="bubbles" aria-hidden="true">
+    <div class="bubble" style="width:260px;height:260px;left:6%;bottom:-40px;animation-duration:28s;"></div>
+    <div class="bubble" style="width:160px;height:160px;left:26%;bottom:-20px;animation-duration:20s;"></div>
+    <div class="bubble" style="width:220px;height:220px;left:60%;bottom:-70px;animation-duration:24s;"></div>
+    <div class="bubble" style="width:120px;height:120px;left:82%;bottom:-20px;animation-duration:18s;"></div>
+  </div>
+
+  <!-- header -->
+  <header>
+    <div class="nav">
+      <a class="brand" href="#" aria-label="StockNova Home">
+        <div class="logo">SN</div>
+        <div>
+          <div style="font-weight:800">StockNova</div>
+          <small style="color:var(--muted);font-weight:600">Inventory · Neon UI</small>
+        </div>
+      </a>
+
+      <nav>
+        <ul>
+          <li><a href="#" class="ghost open-auth" id="openAuthBtn">Login / Signup</a></li>
+          <li><button class="btn open-auth" id="ctaOpen">Get Started</button></li>
+
+          <!-- user area (shown when logged in) -->
+          <li class="user-area" style="display:none">
+            <span id="userNameDisplay" style="margin-right:10px;color:var(--neon1);font-weight:700"></span>
+            <button class="btn-outline" id="logoutBtn">Logout</button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- hero -->
+  <main class="hero">
+    <h1>Modern Inventory. Instant control.</h1>
+    <p class="tagline">Centralize stock, manage transfers, and stop manual mistakes — StockNova prototype.</p>
+
+    <div class="cta-row">
+      <a href="#" class="ghost open-auth" id="openAuthHero">Login</a>
+      <button class="btn open-auth" id="openAuthHero2">Create Account</button>
+    </div>
+  </main>
+
+  <!-- sample card (below hero) -->
+  <section class="card" aria-hidden="true">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+      <div>
+        <h3 style="margin:0">Quick Overview</h3>
+        <p style="color:var(--muted);margin-top:6px">Demo auth, neon styling, client-side storage.</p>
+      </div>
+      <div>
+        <button class="btn open-auth" id="openAuthCard">Open Auth</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Inventory panels -->
+  <section class="card" id="inventorySection">
+    <h3 style="margin-top:0">Inventory — Quick Actions</h3>
+
+    <div class="grids">
+      <!-- Add Product -->
+      <div class="panel">
+        <h4>Add Product</h4>
+        <div class="form-grid">
+          <input id="p_name" placeholder="Product name" />
+          <input id="p_sku" placeholder="SKU / Code" />
+          <input id="p_uom" placeholder="Unit (pcs, kg)" />
+          <input id="p_initial" placeholder="Initial stock (optional)" type="number" />
+        </div>
+        <div style="margin-top:8px"><button class="btn" id="addProdBtn">Add Product</button></div>
+        <p id="prodMsg" class="message"></p>
+      </div>
+
+      <!-- Create Receipt -->
+      <div class="panel">
+        <h4>Create Receipt (Inward)</h4>
+        <div class="form-grid">
+          <input id="r_supplier" placeholder="Supplier" />
+          <select id="r_product"></select>
+          <input id="r_qty" placeholder="Quantity" type="number" />
+        </div>
+        <div style="margin-top:8px"><button class="btn" id="createReceiptBtn">Create Receipt</button></div>
+        <p id="receiptMsg" class="message"></p>
+      </div>
+
+      <!-- Create Delivery -->
+      <div class="panel">
+        <h4>Create Delivery (Outward)</h4>
+        <div class="form-grid">
+          <input id="d_customer" placeholder="Customer" />
+          <select id="d_product"></select>
+          <input id="d_qty" placeholder="Quantity" type="number" />
+        </div>
+        <div style="margin-top:8px"><button class="btn" id="createDeliveryBtn">Create Delivery</button></div>
+        <p id="deliveryMsg" class="message"></p>
+      </div>
+
+      <!-- Product List / Stock -->
+      <div class="panel">
+        <h4>Product List</h4>
+        <div id="productList"></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <small>© StockNova — Prototype. Not for production use.</small>
+  </footer>
+
+  <!-- AUTH MODAL -->
+  <div class="modal hidden" id="authModal" role="dialog" aria-modal="true" aria-labelledby="authTitle" >
+    <div class="modal-content kpi-card">
+      <button class="modal-close" id="closeAuth" aria-label="Close">&times;</button>
+
+      <div class="auth-wrapper">
+        <div class="tabs" role="tablist" aria-label="Authentication Tabs">
+          <button class="tab active" id="tabLogin" role="tab" aria-selected="true">Login</button>
+          <button class="tab" id="tabSignup" role="tab">Signup</button>
+          <button class="tab" id="tabReset" role="tab">Reset</button>
+        </div>
+
+        <!-- LOGIN -->
+        <div id="panelLogin" class="panel" role="tabpanel" aria-labelledby="tabLogin">
+          <h3 id="authTitle">Welcome back</h3>
+          <div class="form-row">
+            <label for="loginEmail">Email</label>
+            <input id="loginEmail" type="email" placeholder="you@example.com" />
+          </div>
+          <div class="form-row">
+            <label for="loginPassword">Password</label>
+            <input id="loginPassword" type="password" placeholder="••••••••" />
+          </div>
+          <div style="display:flex;gap:8px;align-items:center;justify-content:space-between">
+            <button class="btn" id="loginBtn">Login</button>
+            <button class="btn-outline" id="openResetFromLogin">Forgot?</button>
+          </div>
+          <p id="loginMessage" class="message" role="status" aria-live="polite"></p>
+        </div>
+
+        <!-- SIGNUP -->
+        <div id="panelSignup" class="panel hidden" role="tabpanel" aria-labelledby="tabSignup">
+          <h3>Create StockNova account</h3>
+          <div class="form-grid">
+            <div class="form-row">
+              <label for="name">Full name</label>
+              <input id="name" type="text" placeholder="Jane Doe" />
+            </div>
+            <div class="form-row">
+              <label for="mobile">Mobile</label>
+              <input id="mobile" type="text" placeholder="+91 98765 43210" />
+            </div>
+            <div class="form-row">
+              <label for="signupEmail">Email</label>
+              <input id="signupEmail" type="email" placeholder="you@example.com" />
+            </div>
+            <div class="form-row">
+              <label for="gender">Gender</label>
+              <select id="gender">
+                <option value="">Select</option><option>Male</option><option>Female</option><option>Other</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <label for="role">Role</label>
+              <select id="role">
+                <option value="">Select</option><option>Inventory Manager</option><option>Warehouse Staff</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <label for="city">City</label>
+              <input id="city" type="text" placeholder="Mumbai" />
+            </div>
+            <div class="form-row">
+              <label for="signupPassword">Password</label>
+              <input id="signupPassword" type="password" placeholder="min 6 chars" />
+            </div>
+          </div>
+
+          <div style="margin-top:8px;display:flex;gap:8px;align-items:center;justify-content:space-between">
+            <button class="btn" id="signupBtn">Create Account</button>
+            <button class="btn-outline" id="toLoginFromSignup">Sign in</button>
+          </div>
+
+          <p id="signupMessage" class="message" role="status" aria-live="polite"></p>
+        </div>
+
+        <!-- RESET -->
+        <div id="panelReset" class="panel hidden" role="tabpanel" aria-labelledby="tabReset">
+          <h3>Reset password</h3>
+          <div class="form-row">
+            <label for="resetEmail">Registered Email</label>
+            <input id="resetEmail" type="email" placeholder="you@example.com" />
+          </div>
+          <div style="display:flex;gap:8px;align-items:center;justify-content:flex-start">
+            <button class="btn" id="resetBtn">Send Reset Link</button>
+            <button class="btn-outline" id="toLoginFromReset">Back</button>
+          </div>
+          <p id="resetMessage" class="message" role="status" aria-live="polite"></p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
